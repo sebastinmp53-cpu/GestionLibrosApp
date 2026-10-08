@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GestionLibrosApp"
+             x:Class="GestionLibrosApp.MainPage"
+             Title="Biblioteca - Catálogo de Libros">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- Indicator de Carga -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="DarkBlue" HeightRequest="40"/>
+
+            <Button Text="Actualizar Catálogo" Command="{Binding CargarCatalogoCommand}"/>
+
+            <!-- CollectionView con seleccion limpia -->
+            <CollectionView ItemsSource="{Binding Libros}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SeleccionarLibroCommand}"
+                            SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Libro">
+                        <Border Margin="0,5" Padding="15" StrokeShape="RoundRectangle 8">
+                             <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+                                <Label Text="{Binding Autor}" FontSize="14" TextColor="DarkSlateGray"/>
+                                <Label Text="{Binding Categoria}" FontSize="12" TextColor="Gray"/>
+                             </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
